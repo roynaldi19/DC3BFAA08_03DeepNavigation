@@ -1,10 +1,18 @@
 package com.roynaldi19.bfaa08_04deepnavigation
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.TaskStackBuilder
 import android.content.Context
 import android.content.Intent
+import android.media.RingtoneManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import com.roynaldi19.bfaa08_04deepnavigation.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -18,7 +26,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.btnOpenDetail.setOnClickListener(this)
 
-        showNotification(this@MainActivity, getString(R.string.notification_title), getString(R.string.notification_message), 110)
+        showNotification(
+            this@MainActivity,
+            getString(R.string.notification_title),
+            getString(R.string.notification_message),
+            110
+        )
 
     }
 
@@ -31,8 +44,51 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun showNotification(context: Context, title: String, message: String, notifId: Int){
+    private fun showNotification(context: Context, title: String, message: String, notifId: Int) {
+        val CHANEL_ID = "Channel_1"
+        val CHANEL_NAME = "Navigation channel"
 
+        val notifDetailIntent = Intent(this, DetailActivity::class.java)
+        notifDetailIntent.putExtra(DetailActivity.EXTRA_TITLE, title)
+        notifDetailIntent.putExtra(DetailActivity.EXTRA_MESSAGE, message)
+
+        val pendingIntent = TaskStackBuilder.create(this).run {
+            addParentStack(DetailActivity::class.java)
+            addNextIntent(notifDetailIntent)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                getPendingIntent(
+                    110,
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                )
+            } else {
+                getPendingIntent(110, PendingIntent.FLAG_UPDATE_CURRENT)
+            }
+        }
+
+        val notificationManagerCompat =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        val builder = NotificationCompat.Builder(context, CHANEL_ID)
+            .setContentTitle(title)
+            .setSmallIcon(R.drawable.ic_baseline_email_24)
+            .setContentText(message)
+            .setColor(ContextCompat.getColor(context, android.R.color.black))
+            .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
+            .setSound(alarmSound)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel =
+                NotificationChannel(CHANEL_ID, CHANEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+            channel.enableVibration(true)
+            channel.vibrationPattern = longArrayOf(1000, 1000, 1000, 1000, 1000)
+            builder.setChannelId(CHANEL_ID)
+            notificationManagerCompat.createNotificationChannel(channel)
+        }
+
+        val notification = builder.build()
+        notificationManagerCompat.notify(notifId, notification)
 
     }
 
