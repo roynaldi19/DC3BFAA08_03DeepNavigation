@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.roynaldi19.bfaa08_04deepnavigation">
+    package="com.roynaldi19.dc3_08deepnavigation">
 
     <application
         android:allowBackup="true"
@@ -10,16 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BFAA08_04DeepNavigation">
         <activity
-            android:name=".DetailActivity"
+            android:name="com.roynaldi19.dc3_08deepnavigation.DetailActivity"
             android:exported="false"
             android:label="@string/activity_detail"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName="com.roynaldi19.dc3_08deepnavigation.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="com.roynaldi19.dc3_08deepnavigation.MainActivity" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.roynaldi19.dc3_08deepnavigation.MainActivity"
             android:exported="true"
             android:launchMode="singleTop">
             <intent-filter>

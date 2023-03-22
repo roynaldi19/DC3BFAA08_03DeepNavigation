@@ -1,4 +1,4 @@
-package com.roynaldi19.bfaa08_04deepnavigation
+package com.roynaldi19.dc3_08deepnavigation
 
 import org.junit.Test
 

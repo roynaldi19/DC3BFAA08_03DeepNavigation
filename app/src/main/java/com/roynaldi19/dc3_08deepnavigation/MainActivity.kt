@@ -1,4 +1,4 @@
-package com.roynaldi19.bfaa08_04deepnavigation
+package com.roynaldi19.dc3_08deepnavigation
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -13,7 +13,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
-import com.roynaldi19.bfaa08_04deepnavigation.databinding.ActivityMainBinding
+import com.roynaldi19.dc3_08deepnavigation.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 

@@ -1,8 +1,8 @@
-package com.roynaldi19.bfaa08_04deepnavigation
+package com.roynaldi19.dc3_08deepnavigation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.roynaldi19.bfaa08_04deepnavigation.databinding.ActivityDetailBinding
+import com.roynaldi19.dc3_08deepnavigation.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
 
